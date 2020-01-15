@@ -1,12 +1,27 @@
 const express = require('express');
 const app = express();
-const morgan = require('morgan')
+const morgan = require('morgan');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const mongoose = require('mongoose');
 
-const routerProducts = require('./api/routes/products')
-const routerOrder = require('./api/routes/orders')
+
+const routerProducts = require('./api/routes/products');
+const routerOrder = require('./api/routes/orders');
+
+mongoose.connect('mongodb+srv://Greg:' + process.env.MONGO_ATLAS_PW + '@store-qsolc.mongodb.net/myshop?retryWrites=true&w=majority',
+{
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+
+});
+
 
 const port = process.env.PORT || 3000;
 app.use(morgan('dev'));
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+app.use(cors());
 
 //Routes that handle requests
 app.use('/products', routerProducts);
