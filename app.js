@@ -15,6 +15,7 @@ mongoose.connect('mongodb+srv://Greg:' + process.env.MONGO_ATLAS_PW + '@store-qs
   useUnifiedTopology: true
 
 });
+mongoose.Promise = global.Promise;
 
 
 const port = process.env.PORT || 3000;
